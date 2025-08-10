@@ -1,5 +1,6 @@
 let legends = [];
 let currentIndex = 0;
+let navigationSetup = false;
 
 async function loadLegends() {
   try {
@@ -35,9 +36,6 @@ async function loadLegends() {
       updateActiveState();
       showLegend(legends[0]);
     }
-
-    // Setup navigation buttons
-    setupNavigation();
   } catch (error) {
     console.error("Error loading legends:", error);
     document.getElementById("info-panel").innerHTML = `
@@ -117,6 +115,10 @@ function scrollToActiveImage() {
 }
 
 function setupNavigation() {
+  // Prevent setting up multiple event listeners
+  if (navigationSetup) return;
+  navigationSetup = true;
+
   // Add keyboard navigation
   document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft" && legends.length > 0) {
@@ -149,6 +151,7 @@ function setupCarouselScrolling() {
 document.addEventListener("DOMContentLoaded", () => {
   loadLegends();
   setupCarouselScrolling();
+  setupNavigation();
 });
 
 // Also support the old way of loading when script is loaded with defer
@@ -156,8 +159,10 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
     loadLegends();
     setupCarouselScrolling();
+    setupNavigation();
   });
 } else {
   loadLegends();
   setupCarouselScrolling();
+  setupNavigation();
 }
