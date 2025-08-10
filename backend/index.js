@@ -6,7 +6,14 @@ import routes from "./routes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin:
+      process.env.CORS_ORIGIN ||
+      "https://apex-legends-showcase.haithamamireh.com",
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 // API routes
