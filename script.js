@@ -3,7 +3,9 @@ let currentIndex = 0;
 
 async function loadLegends() {
   try {
-    const res = await fetch("http://localhost:3000/api/legends");
+    const res = await fetch(
+      "https://apex-legends-api.haithamamireh.com/api/legends",
+    );
     legends = await res.json();
 
     const carousel = document.getElementById("carousel");
